@@ -6,9 +6,14 @@ const config = {
   content: ["./src/**/*.{html,js,svelte,ts}"],
 
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        tprim: '#64829d',
+        bgprim: '#dcf4ff',
+        
+      },
+    },
   },
-
   plugins: [forms, typography],
 };
 
