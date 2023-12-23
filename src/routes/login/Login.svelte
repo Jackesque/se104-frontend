@@ -1,27 +1,32 @@
 <script>
   import Header from "$lib/components/Header.svelte";
-  import Button from "$lib/components/Button.svelte";
+  import BackBtn from "$lib/components/BackBtn.svelte";
+  import BlueBtn from "$lib/components/BlueBtn.svelte";
 </script>
 
 <head>
   <title>Đăng nhập</title>
 </head>
 
-<Header title="Đăng nhập" />
-<div class=" h-[calc(100vh-112px)] bg-bgprim flex justify-center items-start">
-  
-  <div class=" bg-white flex flex-col gap-4 p-14 pt-8">
+<div class=" h-screen grid grid-rows-[auto_1fr] justify-center items-center">
+  <div class=" row-[1_/_2] col-span-full">
+    <Header title="Đăng nhập" />
+  </div>
+  <div class=" bg-white row-span-full col-span-full flex flex-col gap-4 p-14 pt-8">
     <div>
-      <div class=" text-5xl/normal font-bold">CHÀO MỪNG ĐẾN UIT - COM !</div>
+      <BackBtn />
+    </div>
+    <div>
+      <div class=" uppercase text-5xl/normal font-bold">Mừng bạn quay lại UIT-COM</div>
       Người dùng mới?
-      <a class=" text-tprim font-bold hover:bg-bgprim" href="../html/sign-up.html">Tạo tài khoản</a>
+      <button class=" text-tprim font-bold hover:bg-bgprim" on:click={() => location.replace("../register")}>Tạo tài khoản</button>
     </div>
     <form class="flex flex-col gap-8 px-12">
       <div class="flex flex-col gap-4">
         
         <div>
           
-          <label for="email">Địa chỉ Email:</label>
+          <label for="email">Địa chỉ email</label>
           <input
           type="email"
           id="email"
@@ -33,10 +38,10 @@
         </div>
         <div>
           
-          <label for="#">Mật khẩu:</label>
+          <label for="password">Mật khẩu</label>
           <input
           type="password"
-          id="pass"
+          id="password"
           class="input-line"
           placeholder="Pa$sw0rd"
           autocomplete="current-password"
@@ -44,11 +49,9 @@
           />
         </div>
       </div>
-      <div class="self-end">
-        
-        <Button href="" title="Đăng nhập"/>
+      <div class=" self-center">
+        <BlueBtn href="" title="Đăng nhập" txtClass="uppercase"/>
       </div>
-      <!-- <input type="button" id="button" value="ĐĂNG NHẬP" /> -->
     </form>
   </div>
 </div>

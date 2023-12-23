@@ -1,5 +1,6 @@
 <script>
   import "../app.pcss";
 </script>
-
-<slot />
+<div class=" min-h-screen bg-bgprim">
+  <slot />
+</div>

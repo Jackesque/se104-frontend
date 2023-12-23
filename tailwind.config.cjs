@@ -10,7 +10,11 @@ const config = {
       colors: {
         tprim: '#64829d',
         bgprim: '#dcf4ff',
-        
+        bluebtn: '#2a93fc',
+        bluebtnhover: '#2d74bb',
+        authenbtnhover: '#bfd4e8',
+        backbtn: '#f87171',
+        backbtnhover: '#d10808',
       },
     },
   },

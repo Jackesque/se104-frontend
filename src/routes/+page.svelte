@@ -1,23 +1,31 @@
 <script>
   import Header from '$lib/components/Header.svelte';
-  import Button from '$lib/components/Button.svelte';
+  import BlueBtn from '$lib/components/BlueBtn.svelte';
+  import AuthenBtn from '$lib/components/AuthenBtn.svelte';
   import TableHead from '$lib/components/TableHead.svelte';
+  import ProductItem from '$lib/components/ProductItem.svelte';
 </script>
 <head>
   <title>Trang chủ</title>
 </head>
 
 <Header title="Trang chủ" />
-<div>
+<div class="bg-white py-4">
   <div class=" w-full flex flex-col">
-    <div class="w-100 flex gap-12 px-12 py-2">
-      <Button href="" title="Kênh Người Bán" />
-      <Button href="" title="Tra Cứu Đơn Hàng" />
-      <Button href="" title="Đơn Hàng" />
+    <div class="flex justify-between px-12 py-2">
+      <div class="flex gap-12">
+        <BlueBtn href="./open_shop" title="Kênh Người Bán" />
+        <BlueBtn href="" title="Tra Cứu Đơn Hàng" />
+        <BlueBtn href="" title="Đơn Hàng" />
+      </div>
+      <div class="flex gap-12">
+        <AuthenBtn href="./login" title="Đăng nhập" />
+        <AuthenBtn href="./register" title="Đăng ký" />
+      </div>
     </div>
     <div class=" w-full h-48 flex items-center">
       <div class="w-[60%]">
-        <fieldset class="text-lg rounded border-2 border-solid border-[#c5c5c5] px-4 pt-1 pb-3 w-[500px] mx-5 my-8">
+        <fieldset class="text-lg rounded border-2 border-solid border-[#c5c5c5] px-4 pt-1 pb-3 w-[60%] mx-5 my-8">
           <legend class=" text-tprim">Tìm sản phẩm</legend>
           <input class=" p-0 w-full text-lg border-none outline-none focus:ring-0" type="text" name="" id="" />
         </fieldset>
@@ -28,17 +36,24 @@
       </div>
     </div>
   </div>
-  <div class="box-2">
-    <div class="grid grid-cols-5 p-4 text-center">
-      <TableHead title="sản phẩm" />
-      <TableHead title="cửa hàng" />
-      <TableHead title="giá" />
-      <TableHead title="danh mục" />
-      <TableHead title="thông tin" />
-      
-      <div>
-        <!-- Dữ liệu sản phẩm sẽ được thêm vào đây -->
-      </div>
-    </div>
-  </div>
+  <table class=" w-[80%] p-4 border-collapse border border-black mx-auto">
+    <tr>
+      <th>
+        <TableHead title="Sản phẩm" />
+      </th>
+      <th>
+        <div></div>
+      </th>
+    </tr>
+    <!-- Dữ liệu sản phẩm sẽ được thêm vào đây -->
+    <ProductItem />
+    <ProductItem />
+    <ProductItem />
+  </table>
 </div>
+
+<style>
+  th {
+    border: 1px solid black;
+  }
+</style>
