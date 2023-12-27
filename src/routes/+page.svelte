@@ -3,7 +3,7 @@
   import BlueBtn from '$lib/components/BlueBtn.svelte';
   import AuthenBtn from '$lib/components/AuthenBtn.svelte';
   import TableHead from '$lib/components/TableHead.svelte';
-  import ProductItem from '$lib/components/ProductItem.svelte';
+  import TableProduct from '$lib/components/TableProduct.svelte';
 </script>
 <head>
   <title>Trang chủ</title>
@@ -14,9 +14,10 @@
   <div class=" w-full flex flex-col">
     <div class="flex justify-between px-12 py-2">
       <div class="flex gap-12">
-        <BlueBtn href="./open_shop" title="Kênh Người Bán" />
-        <BlueBtn href="" title="Tra Cứu Đơn Hàng" />
-        <BlueBtn href="" title="Đơn Hàng" />
+        <BlueBtn href="./open_shop" title="Kênh người bán" />
+        <BlueBtn href="./products_storage" title="Danh sách sản phẩm" />
+        <BlueBtn href="./checkout_lookup" title="Tra cứu đơn hàng" />
+        <BlueBtn href="" title="Đơn hàng" />
       </div>
       <div class="flex gap-12">
         <AuthenBtn href="./login" title="Đăng nhập" />
@@ -36,24 +37,20 @@
       </div>
     </div>
   </div>
-  <table class=" w-[80%] p-4 border-collapse border border-black mx-auto">
-    <tr>
-      <th>
-        <TableHead title="Sản phẩm" />
-      </th>
-      <th>
-        <div></div>
-      </th>
-    </tr>
-    <!-- Dữ liệu sản phẩm sẽ được thêm vào đây -->
-    <ProductItem />
-    <ProductItem />
-    <ProductItem />
-  </table>
+  <div class="p-4">
+    <table class=" w-[80%] border-collapse border border-black mx-auto">
+      <tr>
+        <th>
+          <TableHead title="Sản phẩm" />
+        </th>
+        <th>
+          <div></div>
+        </th>
+      </tr>
+      <!-- Dữ liệu sản phẩm sẽ được thêm vào đây -->
+      <TableProduct />
+      <TableProduct />
+      <TableProduct />
+    </table>
+  </div>
 </div>
-
-<style>
-  th {
-    border: 1px solid black;
-  }
-</style>

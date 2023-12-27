@@ -8,7 +8,7 @@
   <title>Đăng kí mở cửa hàng</title>
 </head>
 
-<div class=" h-screen grid grid-rows-[auto_1fr] items-center px-36">
+<div class=" h-screen grid grid-rows-[auto_1fr] items-center">
   <div class=" row-[1_/_2] col-span-full">
     <Header title="Đăng kí mở cửa hàng" />
   </div>
@@ -24,7 +24,7 @@
           id="shopname"
           class="input-line"
           placeholder="ABC Shop"
-          autocomplete="email"
+          autocomplete="name"
           required
           />
         </div>
@@ -66,7 +66,7 @@
         </div>
       </div>
       <div class="self-end">
-        <BlueBtn href="" title="Lưu"/>
+        <BlueBtn href="" title="Lưu" class="uppercase"/>
         
       </div>
     </form>

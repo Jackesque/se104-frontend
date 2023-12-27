@@ -3,13 +3,13 @@
   import BlueBtn from './BlueBtn.svelte'
 </script>
 
-<tr>
-  <td class="py-4 border border-black">
+<tr class={$$props.class}>
+  <td class="py-4">
     <div class=" flex justify-center items-center">
       <img src={product1} alt="UchiMusume6" class=" max-h-48 select-none pointer-events-none" />
     </div>
   </td>
-  <td class="border border-black">
+  <td>
     <div class=" flex justify-center items-center">
       <BlueBtn href="./products/1" title="Xem ngay"/>
     </div>

@@ -88,7 +88,7 @@
         </div>
       </div>
       <div class=" self-center">
-        <BlueBtn href="" title="Đăng ký" txtClass="uppercase"/>
+        <BlueBtn href="" title="Đăng ký" class="uppercase"/>
       </div>
     </form>
   </div>

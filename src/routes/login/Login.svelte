@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class=" self-center">
-        <BlueBtn href="" title="Đăng nhập" txtClass="uppercase"/>
+        <BlueBtn href="" title="Đăng nhập" class="uppercase"/>
       </div>
     </form>
   </div>

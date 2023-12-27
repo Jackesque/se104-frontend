@@ -21,6 +21,9 @@ const config = {
       configFilePath: join(__dirname, 'postcss.config.cjs'),
     },
   }),
+  onwarn: (warning, handler) => {
+    if (warning.code === ('a11y-click-events-have-key-events' || 'a11y-no-static-element-interactions' || 'a11y-autofocus')) return handler(warning);
+  },
 };
 
 export default config;

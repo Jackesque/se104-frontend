@@ -1,4 +1,1 @@
-<script>
-  export let href, title, btnClass, txtClass="";
-</script>
-<a href={href} class={btnClass}><button class={txtClass}>{title}</button></a>
+<a href={$$props.href} class={$$props.class} on:click>{$$props.title}</a>

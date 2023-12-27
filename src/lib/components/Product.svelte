@@ -34,7 +34,7 @@
         <Counter />
       </div>
       <div class="self-end">
-        <BlueBtn href="" title="Mua hàng" txtClass="uppercase"/>
+        <BlueBtn href="../checkout" title="Mua hàng" class="uppercase"/>
       </div>
     </div>
   </div>
