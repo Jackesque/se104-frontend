@@ -3,36 +3,45 @@
   import BlueBtn from "$lib/components/BlueBtn.svelte";
   import BackBtn from "$lib/components/BackBtn.svelte";
   import axios from "$lib/utils/axios.customize.js";
+  import { onMount } from "svelte";
+  import { writable } from "svelte/store";
   
-  const openShop = async () => {
+  let shopId;
+  const shopInfo = writable();
+  
+  const editshopInfo = async () => {
     const name = shopname.value;
     const phoneNumber = shop_tel.value;
     const address = products_address.value;
-    const userId = JSON.parse(localStorage.getItem("userId"));
-    const res = await axios.post("/api/v1/shop", {name, phoneNumber, address, userId});
-    console.log(res);
+    const res = await axios.put(`/api/v1/shop/${shopId}`, {name, phoneNumber, address});
     if(res.statusCode >= 200 && res.statusCode < 300) {
-      localStorage.setItem("shopId", JSON.stringify(res.data.id));
-      alert('Mở cửa hàng thành công!');
+      alert('Sửa thông tin thành công!');
       location.href = "../";
     } else {
       alert(res.message);
     }
   }
   
+  onMount(async () => {
+    shopId = JSON.parse(localStorage.getItem("shopId"));
+    const res = await axios.get(`/api/v1/shop/${shopId}`);
+    shopInfo.set(res.data);
+    console.log($shopInfo);
+  });
 </script>
 
 <head>
-  <title>Đăng ký mở cửa hàng</title>
+  <title>Sửa thông tin shop</title>
 </head>
 
-<div class=" h-screen grid grid-rows-[auto_1fr] items-center">
-  <div class=" row-[1_/_2] col-span-full">
-    <Header title="Đăng ký mở cửa hàng" />
+{#if $shopInfo}
+<div class=" items-center">
+  <div class="">
+    <Header title="Sửa thông tin shop" />
   </div>
-  <div class=" bg-white row-span-full col-span-full flex flex-col gap-4 p-14 pt-8">
+  <div class=" bg-white flex flex-col gap-4 p-14 pt-8">
     <BackBtn />
-    <div class="text-4xl/normal font-bold border-b-2 border-tprim">Thông tin cửa hàng mới</div>
+    <div class="text-4xl/normal font-bold border-b-2 border-tprim">Thông tin shop</div>
     <form class="flex flex-col gap-8 px-12">
       <div class="flex flex-col gap-4">
         <div>
@@ -41,7 +50,7 @@
           type="text"
           id="shopname"
           class="input-line"
-          placeholder="ABC Shop"
+          bind:value={$shopInfo.name}
           autocomplete="name"
           required
           />
@@ -54,7 +63,7 @@
           title="Số điện thoại phải bao gồm 10 hoặc 11 chữ số"
           id="shop_tel"
           class="input-line"
-          placeholder="0987654321"
+          bind:value={$shopInfo.phoneNumber}
           autocomplete="tel"
           required
           />
@@ -65,16 +74,17 @@
           type="text"
           id="products_address"
           class="input-line"
-          placeholder="Số 6 đường D1, Khu Công Nghiệp Tân Bình, phường Tây Thạnh, quận Tân Phú, TP. Hồ Chí Minh"
+          bind:value={$shopInfo.address}
           autocomplete="address-level4"
           required
           />
         </div>
-      </div>
-      <div class="self-end">
-        <button class="bluebtn uppercase" on:click={openShop}>Mở cửa hàng</button>
+        <div class="self-end">
+          <BlueBtn href="" title="Lưu" class="uppercase" on:click={editshopInfo}/>
+        </div>
       </div>
     </form>
   </div>
 </div>
+{/if}
 

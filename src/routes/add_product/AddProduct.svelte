@@ -3,9 +3,34 @@
   import BackBtn from "$lib/components/BackBtn.svelte";
   import BlueBtn from "$lib/components/BlueBtn.svelte";
   import { onMount } from 'svelte';
+  import axios from "$lib/utils/axios.customize.js";
+  import { writable } from "svelte/store";
   
   let descrRowsCount = 4;
-  onMount(() => {
+  let shopId;
+  const factoryInfo = writable();
+  const typeInfo = writable();
+  
+  const addProduct = async () => {
+    const name = add_product_name.value;
+    const description = add_product_descr.value;
+    const image = add_product_image.value;
+    const typeId = Number(add_product_type.value);
+    const factoryId = Number(add_product_factory.value);
+    const price = Number(add_product_price.value);
+    const quantity = Number(add_product_quantity.value);
+    console.log({name, description, image, typeId, factoryId, price, quantity, shopId});
+    const res = await axios.post("/api/v1/product", {name, description, image, typeId, factoryId, price, quantity, shopId});
+    console.log(res);
+    if(res.statusCode >= 200 && res.statusCode < 300) {
+      alert('Thêm sản phẩm thành công!');
+      history.back();
+    } else {
+      alert(res.message);
+    }
+  }
+  onMount(async () => {
+    shopId = JSON.parse(localStorage.getItem("shopId"));
     // Make textarea auto resize
     add_product_descr.addEventListener("input", () => {
       add_product_descr.style.height = '0';
@@ -13,14 +38,10 @@
       add_product_descr.style.height = 'auto';
     });
     
-    // Delete "-" key from positive number input
-    [add_product_type, add_product_quantity].map((element) => {
-      element.addEventListener("input", (e) => {
-        if (e.includes("-")) {
-          element.value = e.replaceAll("-", "");
-        }
-      })
-    })
+    const factoryRes = await axios.get("/api/v1/factory");
+    factoryInfo.set(factoryRes.data);
+    const typeRes = await axios.get("/api/v1/type-product");
+    typeInfo.set(typeRes.data);
   });
 </script>
 
@@ -28,11 +49,11 @@
   <title>Thêm sản phẩm</title>
 </head>
 
-<div class=" h-screen grid grid-rows-[auto_1fr] items-center">
-  <div class=" row-[1_/_2] col-span-full">
+<div class=" col-span-2 grid items-center">
+  <div class="">
     <Header title="Thêm sản phẩm" />
   </div>
-  <div class=" bg-white row-span-full col-span-full flex flex-col gap-4 p-14 pt-8">
+  <div class=" bg-white flex flex-col gap-4 p-14 pt-8">
     <BackBtn />
     <div class="text-4xl/normal font-bold border-b-2 border-tprim">Thông tin sản phẩm cần thêm</div>
     <form class="flex flex-col gap-8 px-12">
@@ -61,12 +82,37 @@
           />
         </div>
         <div>
-          <label for="add_product_type">Thể loại</label>
-          <select name="add_product_type" id="add_product_type" class="block">
-            <option value="clothes">Áo quần</option>
-            <option value="shoes">Giày dép</option>
-            <option value="jewelry">Trang sức</option>
-          </select>
+          <label for="add_product_image">Hình ảnh minh họa</label>
+          <input
+          type="text"
+          id="add_product_image"
+          class="input-line"
+          placeholder="https://static.wikia.nocookie.net/otonari-no-tenshisama-tieng-viet/images/3/38/Shiina_Mahiru_%28Teaser_Visual_2%29.jpg/revision/latest?cb=20220326094422&path-prefix=vi"
+          autocomplete="name"
+          required
+          />
+        </div>
+        <div class="flex">
+          <div class="inline-block w-[50%]">
+            <label for="add_product_type">Thể loại</label>
+            <select name="add_product_type" id="add_product_type" class="block">
+              {#if $typeInfo}
+              {#each $typeInfo as {id, name} (id) }
+              <option value="{id}">{name}</option>
+              {/each}
+              {/if}
+            </select>
+          </div>
+          <div class="inline-block w-[50%]">
+            <label for="add_product_factory">Nhà sản xuất</label>
+            <select name="add_product_factory" id="add_product_factory" class="block uppercase">
+              {#if $factoryInfo}
+              {#each $factoryInfo as {id, name} (id) }
+              <option value="{id}">{name}</option>
+              {/each}
+              {/if}
+            </select>
+          </div>
         </div>
         <div class="flex justify-between gap-4">
           <div class="flex-1">
@@ -79,6 +125,7 @@
               step="1000"
               min="0"
               placeholder="100000"
+              oninput="this.value = this.value.replaceAll('-','');"
               autocomplete="transaction-amount"
               required
               />
@@ -94,13 +141,15 @@
             class="input-line"
             min="0"
             placeholder="100"
+            oninput="this.value = this.value.replaceAll('-','');"
             autocomplete="on"
             required
             />
           </div>
         </div>
         <div class="self-end">
-          <BlueBtn href="../products_storage" title="Thêm" class="uppercase" />
+          <a href="" class="bluebtn uppercase" on:click={addProduct}>Thêm</a>
+          <!-- ../products_storage -->
         </div>
       </form>
     </div>

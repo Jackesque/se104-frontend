@@ -1,1 +1,0 @@
-<a href={$$props.href} class={$$props.class} on:click>{$$props.title}</a>

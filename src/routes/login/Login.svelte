@@ -2,6 +2,25 @@
   import Header from "$lib/components/Header.svelte";
   import BackBtn from "$lib/components/BackBtn.svelte";
   import BlueBtn from "$lib/components/BlueBtn.svelte";
+  import axios from "$lib/utils/axios.customize.js";
+  
+  const loginUser = async () => {
+    // const emailValue = user_email.value;
+    // const passwordValue = user_password.value;
+    // const loginUser = {email: emailValue, password: passwordValue,};
+    const email = user_email.value;
+    const password = user_password.value;
+    const res = await axios.post("/api/v1/auth/login", {email, password});
+    if(res.statusCode >= 200 && res.statusCode < 300) {
+      localStorage.setItem("userId", JSON.stringify(res.data.data.id));
+      const shopRes = await axios.get(`/api/v1/shop/user/${res.data.data.id}`);
+      localStorage.setItem("shopId", JSON.stringify(shopRes.data.id));
+      alert('Đăng nhập thành công!');
+      location.href = "../";
+    } else {
+      alert(res.message);
+    }
+  }
 </script>
 
 <head>
@@ -14,7 +33,7 @@
   </div>
   <div class=" bg-white row-span-full col-span-full flex flex-col gap-4 p-14 pt-8">
     <div>
-      <BackBtn />
+      <!-- <BackBtn /> -->
     </div>
     <div>
       <div class=" uppercase text-5xl/normal font-bold">Mừng bạn quay lại UIT-COM</div>
@@ -26,10 +45,10 @@
         
         <div>
           
-          <label for="email">Địa chỉ email</label>
+          <label for="user_email">Địa chỉ email</label>
           <input
           type="email"
-          id="email"
+          id="user_email"
           class="input-line"
           placeholder="your.email@domain.com"
           autocomplete="email"
@@ -38,10 +57,10 @@
         </div>
         <div>
           
-          <label for="password">Mật khẩu</label>
+          <label for="user_password">Mật khẩu</label>
           <input
           type="password"
-          id="password"
+          id="user_password"
           class="input-line"
           placeholder="Pa$sw0rd"
           autocomplete="current-password"
@@ -50,21 +69,8 @@
         </div>
       </div>
       <div class=" self-center">
-        <BlueBtn href="" title="Đăng nhập" class="uppercase"/>
+        <BlueBtn href="" title="Đăng nhập" class="uppercase" on:click={loginUser}/>
       </div>
     </form>
   </div>
 </div>
-
-<style>
-  .input-line {
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid black;
-    outline: none;
-  }
-  .input-line:focus {
-    --tw-ring-shadow: 0;
-  }
-  
-</style>

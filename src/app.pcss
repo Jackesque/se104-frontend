@@ -19,3 +19,35 @@
 .input-line:focus {
   --tw-ring-shadow: 0;
 }
+
+.bluebtn, .authenbtn {
+  display: block;
+  padding-block: 0.5rem;
+  border: none;
+  margin-block: auto;
+  border-radius: 0.25rem;
+  text-align: center;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  cursor: pointer;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.bluebtn {
+  min-width: 12rem;  
+  color: white;
+  background-color: theme('colors.bluebtn');
+}
+.bluebtn:hover {
+  background-color: theme('colors.bluebtnhover');
+}
+
+.authenbtn {
+  min-width: 9rem;  
+  color: theme('colors.tprim');
+  background-color: theme('colors.bgprim');
+}
+.authenbtn:hover {
+  background-color: theme('colors.authenbtnhover');
+}

@@ -1,12 +1,11 @@
 <script>
-  let count = 1;
+  export let count = 1, maxCount;
   
   const increment = () => {
-    ++count;
+    if (count < maxCount) ++count;
   }
   const decrement = () => {
-    if (count > 1)
-    --count;
+    if (count > 1) --count;
   }
 </script>
 
