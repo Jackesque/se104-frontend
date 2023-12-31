@@ -14,6 +14,8 @@
   const userInfo = writable();
   const shopInfo = writable();
   const productsInfo = writable();
+  const factoryInfo = writable();
+  const typeInfo = writable();
   
   const logoutUser = () => {
     localStorage.removeItem("userId");
@@ -47,33 +49,40 @@
     
     const shopRes = await axios.get(`/api/v1/shop/${shopId}`);
     shopInfo.set(shopRes.data);
-    const productsRes = await axios.get(`/api/v1/product`);
+    const productsRes = await axios.post(`/api/v1/product/all`, {shopId});
     productsInfo.set(productsRes.data);
     console.log($productsInfo);
+    
+    const typeRes = await axios.get("/api/v1/type-product");
+    typeInfo.set(typeRes.data);
+    const factoryRes = await axios.get("/api/v1/factory");
+    factoryInfo.set(factoryRes.data);
+    $typeInfo.forEach((item) => {
+      typeArray[item.id] = item.name;
+    });
+    $factoryInfo.forEach((item) => {
+      factoryArray[item.id] = item.name;
+    });
   });
 </script>
 <head>
-  <title>Trang chủ</title>
+  <title>Trang chủ shop</title>
 </head>
 
-{#if $userInfo && $productsInfo}
-<Header title="Trang chủ" />
+{#if $shopInfo && $productsInfo}
+<Header title="Trang chủ shop" />
 <div class="bg-white py-4">
   <div class=" w-full flex flex-col">
     <div class="flex justify-between px-12 py-2">
       <div class="flex gap-12">
         {#if $shopInfo}
-        <a href="./shop" class="bluebtn">Vào shop</a>
-        
-        {:else}
-        <a href="./open_shop" class="bluebtn">Mở shop</a>
+        <a href="./edit_shop_info" class="bluebtn">Thông tin shop</a>
+        <a href="./products_storage" class="bluebtn">Danh sách sản phẩm</a>
+        <a href="../add_product" class="bluebtn"> Thêm sản phẩm</a>
         {/if}
       </div>
       <div class="flex gap-12 items-center">
-        <a href="./edit_user_info" class="bluebtn">Thông tin người dùng</a>
-        <a href="./checkout" class="bluebtn">Xem giỏ hàng (chưa làm)</a>
-        <a href="./checkout" class="bluebtn">Xem đơn hàng</a>
-        <a href="./checkout_lookup" class="bluebtn">Tra cứu đơn hàng</a>
+        <a href="../" class="authenbtn">Về trang chủ</a>
         <button class="authenbtn" on:click={logoutUser}>Đăng xuất</button>
       </div>
     </div>
@@ -87,14 +96,14 @@
       <div class="w-[40%] flex flex-col gap-4 text-center">
         <div class=" text-3xl">Xin chào {$userInfo.name}</div>
         
-        <div class=" text-5xl/normal font-bold">UIT-COM</div>
+        <div class=" text-5xl/normal font-bold">{$shopInfo.name}</div>
       </div>
     </div>
   </div>
   <div class="p-4">
     <div class="flex flex-wrap justify-start items-start gap-4">
       {#each $productsInfo as {id, name, image, price} (id) }
-      <a href="./product/{id}" class=" card block min-h-[20rem] w-48 border border-slate-300 rounded ease-in-out duration-300 hover:shadow-xl hover:border-black">
+      <a href="./shop/product/{id}" class=" card block min-h-[20rem] w-48 border border-slate-300 rounded ease-in-out duration-300 hover:shadow-xl hover:border-black">
         <div class=" w-full h-full flex flex-col justify-between items-center gap-4">
           <div></div>
           <img src={image} alt="product_image" class=" max-h-48 select-none pointer-events-none" />

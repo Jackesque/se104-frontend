@@ -15,6 +15,7 @@
       localStorage.setItem("userId", JSON.stringify(res.data.data.id));
       const shopRes = await axios.get(`/api/v1/shop/user/${res.data.data.id}`);
       localStorage.setItem("shopId", JSON.stringify(shopRes.data.id));
+      if (!JSON.parse(localStorage.getItem("cart"))) localStorage.setItem("cart", JSON.stringify([]));
       alert('Đăng nhập thành công!');
       location.href = "../";
     } else {

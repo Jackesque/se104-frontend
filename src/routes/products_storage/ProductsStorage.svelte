@@ -21,10 +21,11 @@
   
   onMount(async () => {
     shopId = JSON.parse(localStorage.getItem("shopId"));
-    const factoryRes = await axios.get("/api/v1/factory");
-    factoryInfo.set(factoryRes.data);
     const typeRes = await axios.get("/api/v1/type-product");
     typeInfo.set(typeRes.data);
+    const factoryRes = await axios.get("/api/v1/factory");
+    factoryInfo.set(factoryRes.data);
+    
     const productsRes = await axios.post("/api/v1/product/all", {shopId});
     productsInfo.set(productsRes.data);
     $typeInfo.forEach((item) => {
@@ -47,7 +48,8 @@
       <legend class=" text-tprim">Tìm sản phẩm</legend>
       <input class=" p-0 w-full text-lg border-none outline-none focus:ring-0" type="text" name="filter_product" id="filter_product" placeholder="Nhập tên sản phẩm" on:input={filterProduct} />
     </fieldset>
-    <BlueBtn href="../add_product" title="Thêm" class="uppercase" />
+    <!-- <BlueBtn href="../add_product" title="Thêm" class="uppercase" /> -->
+    <a href="../add_product" class="bluebtn"> Thêm sản phẩm</a>
   </div>
   <div class="p-4">
     <table class=" min-w-[80%] border-collapse border border-black mx-auto">

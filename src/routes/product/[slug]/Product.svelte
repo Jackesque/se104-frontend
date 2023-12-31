@@ -2,10 +2,10 @@
   import { page } from '$app/stores'
   import { onMount } from "svelte";
   import { writable } from "svelte/store";
-  import Counter from "../../../lib/components/Counter.svelte";
+  import Counter from "$lib/components/Counter.svelte";
   import axios from "$lib/utils/axios.customize.js";
-  import Header from "../../../lib/components/Header.svelte";
-  import BackBtn from "../../../lib/components/BackBtn.svelte";
+  import Header from "$lib/components/Header.svelte";
+  import BackBtn from "$lib/components/BackBtn.svelte";
   
   let shopId, productsCount;
   const productsInfo = writable();
