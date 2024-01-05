@@ -18,6 +18,16 @@
     const res = await axios.post(`/api/v1/product/all?name=${filter_product.value}`, {shopId});
     productsInfo.set(res.data);
   }
+  const deleteProduct = async (id) => {
+    const item = $productsInfo.find(item => item.id === id);
+    const isDeleted = confirm(`Bạn có muốn xóa sản phẩm ${item.name} không?`);
+    if (!isDeleted) return;
+
+    const res = await axios.delete('/api/v1/product', {data: {id}});
+    const productsRes = await axios.post("/api/v1/product/all", {shopId});
+    productsInfo.set(productsRes.data);
+    alert("Xóa sản phẩm thành công!");
+  }
   
   onMount(async () => {
     shopId = JSON.parse(localStorage.getItem("shopId"));
@@ -78,6 +88,12 @@
         <th>
           <TableHead title="Số lượng" />
         </th>
+        <th>
+          <TableHead title="Sửa thông tin" />
+        </th>
+        <th>
+          <TableHead title="Xóa sản phẩm" />
+        </th>
       </tr>
       {#if $productsInfo}
       {#each $productsInfo as {id, name, description, image, typeId, factoryId, price, quantity} (id) }
@@ -90,6 +106,8 @@
         <td class="px-2">{factoryArray[factoryId]}</td>
         <td class="px-2">{price}</td>
         <td class="px-2">{quantity}</td>
+        <td class="px-2"><a href="./shop/product/{id}" class="inline-block px-2 bg-slate-200 rounded">Sửa</a></td>
+        <td class="px-2"><button class="px-2 bg-slate-200 rounded" on:click={deleteProduct(id)}>Xóa</button></td>
       </tr>
       {/each}
       {/if}

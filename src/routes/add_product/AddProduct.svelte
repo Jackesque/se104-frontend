@@ -15,11 +15,10 @@
     const name = add_product_name.value;
     const description = add_product_descr.value;
     const image = add_product_image.value;
-    const typeId = Number(add_product_type.value);
-    const factoryId = Number(add_product_factory.value);
-    const price = Number(add_product_price.value);
-    const quantity = Number(add_product_quantity.value);
-    console.log({name, description, image, typeId, factoryId, price, quantity, shopId});
+    const typeId = add_product_type.value;
+    const factoryId = add_product_factory.value;
+    const price = add_product_price.value;
+    const quantity = add_product_quantity.value;
     const res = await axios.post("/api/v1/product", {name, description, image, typeId, factoryId, price, quantity, shopId});
     console.log(res);
     if(res.statusCode >= 200 && res.statusCode < 300) {
@@ -31,6 +30,7 @@
   }
   onMount(async () => {
     shopId = JSON.parse(localStorage.getItem("shopId"));
+
     // Make textarea auto resize
     add_product_descr.addEventListener("input", () => {
       add_product_descr.style.height = '0';
@@ -38,10 +38,10 @@
       add_product_descr.style.height = 'auto';
     });
     
-    const factoryRes = await axios.get("/api/v1/factory");
-    factoryInfo.set(factoryRes.data);
     const typeRes = await axios.get("/api/v1/type-product");
     typeInfo.set(typeRes.data);
+    const factoryRes = await axios.get("/api/v1/factory");
+    factoryInfo.set(factoryRes.data);
   });
 </script>
 
@@ -98,17 +98,17 @@
             <select name="add_product_type" id="add_product_type" class="block">
               {#if $typeInfo}
               {#each $typeInfo as {id, name} (id) }
-              <option value="{id}">{name}</option>
+              <option value={id}>{name}</option>
               {/each}
               {/if}
             </select>
           </div>
           <div class="inline-block w-[50%]">
             <label for="add_product_factory">Nhà sản xuất</label>
-            <select name="add_product_factory" id="add_product_factory" class="block uppercase">
+            <select name="add_product_factory" id="add_product_factory" class="block">
               {#if $factoryInfo}
               {#each $factoryInfo as {id, name} (id) }
-              <option value="{id}">{name}</option>
+              <option value={id}>{name}</option>
               {/each}
               {/if}
             </select>
@@ -148,8 +148,7 @@
           </div>
         </div>
         <div class="self-end">
-          <a href="" class="bluebtn uppercase" on:click={addProduct}>Thêm</a>
-          <!-- ../products_storage -->
+          <button class="bluebtn uppercase" on:click={addProduct}>Thêm</button>
         </div>
       </form>
     </div>
