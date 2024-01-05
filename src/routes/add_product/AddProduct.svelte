@@ -15,10 +15,11 @@
     const name = add_product_name.value;
     const description = add_product_descr.value;
     const image = add_product_image.value;
-    const typeId = add_product_type.value;
-    const factoryId = add_product_factory.value;
-    const price = add_product_price.value;
-    const quantity = add_product_quantity.value;
+    const typeId = Number(add_product_type.value);
+    const factoryId = Number(add_product_factory.value);
+    const price = Number(add_product_price.value);
+    const quantity = Number(add_product_quantity.value);
+    console.log({name, description, image, typeId, factoryId, price, quantity, shopId});
     const res = await axios.post("/api/v1/product", {name, description, image, typeId, factoryId, price, quantity, shopId});
     console.log(res);
     if(res.statusCode >= 200 && res.statusCode < 300) {
@@ -125,7 +126,6 @@
               step="1000"
               min="0"
               placeholder="100000"
-              oninput="this.value = this.value.replaceAll('-','');"
               autocomplete="transaction-amount"
               required
               />
@@ -141,7 +141,6 @@
             class="input-line"
             min="0"
             placeholder="100"
-            oninput="this.value = this.value.replaceAll('-','');"
             autocomplete="on"
             required
             />
