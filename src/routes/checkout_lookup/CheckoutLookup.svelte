@@ -19,6 +19,7 @@
     onMount(async () => {
       userId = JSON.parse(localStorage.getItem("userId"));
       const checkoutRes = await axios.get(`/api/v1/order/by-user/${userId}`);
+      console.log("checkoutres", checkoutRes);
       checkoutInfo.set(checkoutRes.data);
     });
   </script>
@@ -43,7 +44,7 @@
             <TableHead title="Mã đơn hàng" />
           </th>
           <th>
-            <TableHead title="Sản phẩm" />
+            <TableHead title="Tên sản phẩm" />
           </th>
           <th>
             <TableHead title="Shop" />

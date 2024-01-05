@@ -16,11 +16,12 @@
     const price = $productsInfo.price;
     const shopName = $productsInfo.shop.name;
     const quantity = productsCount;
+    const shopId = $productsInfo.shop.id;
     
     let cart = JSON.parse(localStorage.getItem("cart"));
     const index = cart.findIndex((item) => item.id === id);
     if (index >= 0) cart[index].quantity += quantity; 
-    else cart = [...cart, {id, name, price, shopName, quantity}];
+    else cart = [...cart, {id, name, price, shopName, quantity, shopId}];
     localStorage.setItem("cart", JSON.stringify(cart));
     
     alert('Thêm vào giỏ hàng thành công');
@@ -32,11 +33,12 @@
     const price = $productsInfo.price;
     const shopName = $productsInfo.shop.name;
     const quantity = productsCount;
+    const shopId = $productsInfo.shop.id;
     
     let cart = JSON.parse(localStorage.getItem("cart"));
     const index = cart.findIndex((item) => item.id === id);
     if (index >= 0) cart[index].quantity += quantity; 
-    else cart = [...cart, {id, name, price, shopName, quantity}];
+    else cart = [...cart, {id, name, price, shopName, quantity, shopId}];
     localStorage.setItem("cart", JSON.stringify(cart));
     
     location.href = "../checkout";
@@ -61,7 +63,7 @@
   </div>
   
   <div class=" flex gap-4">
-    <img src={$productsInfo.image} alt="UchiMusume6" class=" h-[50vh] select-none pointer-events-none" />
+    <img src={$productsInfo.image} alt="product_image" class=" h-[50vh] select-none pointer-events-none" />
     
     <div class=" flex-1 flex flex-col gap-4">
       <div>
