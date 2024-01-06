@@ -14,7 +14,7 @@
     if(res.statusCode >= 200 && res.statusCode < 300) {
       localStorage.setItem("shopId", JSON.stringify(res.data.id));
       alert('Mở cửa hàng thành công!');
-      location.href = "../";
+      location.href = "../shop";
     } else {
       alert(res.message);
     }

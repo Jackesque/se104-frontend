@@ -13,6 +13,7 @@
   const addProductToCart = () => {
     const id = $productsInfo.id;
     const name = $productsInfo.name;
+    const image = $productsInfo.image;
     const price = $productsInfo.price;
     const shopName = $productsInfo.shop.name;
     const quantity = productsCount;
@@ -21,7 +22,7 @@
     let cart = JSON.parse(localStorage.getItem("cart"));
     const index = cart.findIndex((item) => item.id === id);
     if (index >= 0) cart[index].quantity += quantity; 
-    else cart = [...cart, {id, name, price, shopName, quantity, shopId}];
+    else cart = [...cart, {id, name, image, price, shopName, quantity, shopId}];
     localStorage.setItem("cart", JSON.stringify(cart));
     
     alert('Thêm vào giỏ hàng thành công');
@@ -30,6 +31,7 @@
   const buyProduct = () => {
     const id = $productsInfo.id;
     const name = $productsInfo.name;
+    const image = $productsInfo.image;
     const price = $productsInfo.price;
     const shopName = $productsInfo.shop.name;
     const quantity = productsCount;
@@ -38,10 +40,10 @@
     let cart = JSON.parse(localStorage.getItem("cart"));
     const index = cart.findIndex((item) => item.id === id);
     if (index >= 0) cart[index].quantity += quantity; 
-    else cart = [...cart, {id, name, price, shopName, quantity, shopId}];
+    else cart = [...cart, {id, name, image, price, shopName, quantity, shopId}];
     localStorage.setItem("cart", JSON.stringify(cart));
     
-    location.href = "../checkout";
+    location.href = "../cart";
   }
   onMount(async () => {
     shopId = JSON.parse(localStorage.getItem("shopId"));

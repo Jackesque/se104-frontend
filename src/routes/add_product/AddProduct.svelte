@@ -25,6 +25,7 @@
     if(res.statusCode >= 200 && res.statusCode < 300) {
       alert('Thêm sản phẩm thành công!');
       history.back();
+      history.back();
     } else {
       alert(res.message);
     }

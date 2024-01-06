@@ -44,6 +44,10 @@
       const res = await axios.get(`/api/v1/product?factoryId=${factoryId}`);
       filteredData = res.data;
     }
+    if (condition === "default") {
+      const res = await axios.get(`/api/v1/product`);
+      filteredData = res.data;
+    }
     console.log("filterproductres", condition, filteredData);
     productsInfo.set(filteredData);
   }
@@ -93,8 +97,7 @@
       </div>
       <div class="flex gap-12 items-center">
         <a href="./edit_user_info" class="bluebtn">Thông tin người dùng</a>
-        <a href="./checkout" class="bluebtn">Xem giỏ hàng (chưa làm)</a>
-        <a href="./checkout" class="bluebtn">Xem đơn hàng</a>
+        <a href="./cart" class="bluebtn">Giỏ hàng</a>
         <a href="./checkout_lookup" class="bluebtn">Tra cứu đơn hàng</a>
         <button class="authenbtn" on:click={logoutUser}>Đăng xuất</button>
       </div>
@@ -135,6 +138,9 @@
           <button class="px-2 bg-slate-300 rounded" on:click={() => filterProduct("factory")}>Lọc</button>
           {/if}
         </div> -->
+      </div>
+      <div>
+        <button class="px-2 bg-slate-300 rounded" on:click={() => filterProduct("default")}>Hủy lọc</button>
       </div>
       <div class="w-[30%] flex flex-col gap-4 text-center">
         <div class=" text-3xl">Xin chào {$userInfo.name}</div>

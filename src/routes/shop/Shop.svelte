@@ -38,15 +38,19 @@
     }
     if (condition === "price") {
       console.log($toPrice);
-      const res = await axios.get(`/api/v1/product?price=${$toPrice}`);
+      const res = await axios.post(`/api/v1/product/all?price=${$toPrice}`, {shopId});
       filteredData = res.data;
     }
     if (condition === "type") {
-      const res = await axios.get(`/api/v1/product?typeId=${typeId}`);
+      const res = await axios.post(`/api/v1/product/all?typeId=${typeId}`, {shopId});
       filteredData = res.data;
     }
     if (condition === "factory") {
-      const res = await axios.get(`/api/v1/product?factoryId=${factoryId}`);
+      const res = await axios.post(`/api/v1/product/all?factoryId=${factoryId}`, {shopId});
+      filteredData = res.data;
+    }
+    if (condition === "default") {
+      const res = await axios.post(`/api/v1/product/all`, {shopId});
       filteredData = res.data;
     }
     console.log("filterproductres", condition, filteredData);
@@ -91,9 +95,9 @@
       <div class="flex gap-12">
         {#if $shopInfo}
         <a href="./edit_shop_info" class="bluebtn">Thông tin shop</a>
-        <a href="./shop/checkout_lookup" class="bluebtn">Tra cứu đơn hàng</a>
         <a href="./products_storage" class="bluebtn">Danh sách sản phẩm</a>
-        <a href="../add_product" class="bluebtn"> Thêm sản phẩm</a>
+        <a href="./shop/checkout_lookup" class="bluebtn">Tra cứu đơn hàng</a>
+        <a href="./shop/income" class="bluebtn">Xem doanh thu</a>
         {/if}
       </div>
       <div class="flex gap-12 items-center">
@@ -136,6 +140,9 @@
           <button class="px-2 bg-slate-300 rounded" on:click={() => filterProduct("factory")}>Lọc</button>
           {/if}
         </div> -->
+      </div>
+      <div>
+        <button class="px-2 bg-slate-300 rounded" on:click={() => filterProduct("default")}>Hủy lọc</button>
       </div>
       <div class="w-[30%] flex flex-col gap-4 text-center">
         <div class=" text-3xl">Xin chào {$userInfo.name}</div>

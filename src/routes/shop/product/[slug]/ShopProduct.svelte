@@ -26,7 +26,7 @@
     console.log(res);
     if(res.statusCode >= 200 && res.statusCode < 300) {
       alert('Sửa thông tin thành công!');
-      // history.back();
+      history.back();
     } else {
       alert(res.message);
     }
