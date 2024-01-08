@@ -69,7 +69,8 @@
         const address = $userInfo.address;
         const phoneNumber = $userInfo.phoneNumber;
         const productPrice = totalPrice;
-        const deliveryPrice = $deliveryInfo[deliveryId].price;
+        const deliveryPrice = $deliveryInfo.find(item => item.id === deliveryId).price;
+        console.log(deliveryPrice);
         const detail = cart.map((item) => {return {productId: item.id, quantity: item.quantity, price: item.price, shopId: item.shopId};});
         console.log({userId, name, address, phoneNumber, productPrice, deliveryPrice, deliveryId, detail});
         const res = await axios.post('api/v1/order', {userId, name, address, phoneNumber, productPrice, deliveryPrice, deliveryId, detail});
